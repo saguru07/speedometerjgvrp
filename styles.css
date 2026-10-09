@@ -2,7 +2,7 @@
     --scale: 0.8;               /* perbesar / perkecil HUD */
     --offset-bottom: 70px;      /* jarak dari bawah layar */
     --offset-right: 18px;       /* jarak dari kanan layar */
-    --logo-size: 110px;         /* ukuran logo intro */
+    --logo-size: 250px;         /* ukuran logo intro */
     --panel: #161616;
     --lit: #eef8c4;             /* warna segmen RPM & fuel yang menyala */
     --seg-off: #2a2a2a;
@@ -109,7 +109,7 @@ body.preview .hud-wrap { right: 50%; bottom: 50%; transform: translate(50%, 50%)
     background: var(--panel);
     opacity: 0; pointer-events: none;
 }
-.intro-logo { display: block; width: var(--logo-size); height: var(--logo-size); object-fit: contain; filter: invert(1) contrast(1.6); mix-blend-mode: screen; }
+.intro-logo { display: block; width: var(--logo-size); height: var(--logo-size); object-fit: contain; }
 .cluster.intro-on .intro   { animation: introFade 2.7s ease both; }
 .cluster.intro-on .content { animation: contentIn 2.7s ease both; }
 @keyframes introFade { 0% { opacity: 0; } 12% { opacity: 1; } 78% { opacity: 1; } 100% { opacity: 0; } }
