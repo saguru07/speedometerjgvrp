@@ -109,10 +109,7 @@ body.preview .hud-wrap { right: 50%; bottom: 50%; transform: translate(50%, 50%)
     background: var(--panel);
     opacity: 0; pointer-events: none;
 }
-.intro-text { font-weight: 800; font-size: 44px; letter-spacing: 0.12em; }
-.intro-logo { display: none; width: var(--logo-size); height: var(--logo-size); object-fit: contain; filter: invert(1) contrast(1.6); mix-blend-mode: screen; }
-.intro.has-logo .intro-logo { display: block; }
-.intro.has-logo .intro-text { display: none; }
+.intro-logo { display: block; width: var(--logo-size); height: var(--logo-size); object-fit: contain; filter: invert(1) contrast(1.6); mix-blend-mode: screen; }
 .cluster.intro-on .intro   { animation: introFade 2.7s ease both; }
 .cluster.intro-on .content { animation: contentIn 2.7s ease both; }
 @keyframes introFade { 0% { opacity: 0; } 12% { opacity: 1; } 78% { opacity: 1; } 100% { opacity: 0; } }
