@@ -1,0 +1,119 @@
+:root {
+    --scale: 0.8;               /* perbesar / perkecil HUD */
+    --offset-bottom: 70px;      /* jarak dari bawah layar */
+    --offset-right: 18px;       /* jarak dari kanan layar */
+    --logo-size: 110px;         /* ukuran logo intro */
+    --panel: #161616;
+    --lit: #eef8c4;             /* warna segmen RPM & fuel yang menyala */
+    --seg-off: #2a2a2a;
+    --dim: rgba(255, 255, 255, 0.2);
+    --red: #ff2a2f;
+    --green: #22d65a;
+    --blue: #2f8bff;
+    --yellow: #ffc21a;
+    --font: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+    width: 100vw; height: 100vh;
+    background: transparent;
+    overflow: hidden;
+    font-family: var(--font);
+    color: #fff;
+    user-select: none;
+}
+
+.hud-wrap {
+    position: fixed;
+    right: var(--offset-right);
+    bottom: var(--offset-bottom);
+    width: 480px; height: 250px;
+    transform: scale(var(--scale));
+    transform-origin: bottom right;
+}
+
+/* Mode preview di browser */
+body.preview { background: linear-gradient(180deg, #4b5563 0%, #1f242c 55%, #0d0f13 100%); }
+body.preview .hud-wrap { right: 50%; bottom: 50%; transform: translate(50%, 50%) scale(var(--scale)); transform-origin: center; }
+
+.cluster {
+    position: relative;
+    width: 480px; height: 250px;
+    border-radius: 24px;
+    background: var(--panel);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+.content { position: absolute; inset: 0; }
+
+/* ===== SPEED ===== */
+.speed {
+    position: absolute; left: 30px; top: 22px;
+    font-weight: 800; font-size: 116px; line-height: 1;
+    letter-spacing: -0.05em;
+    font-variant-numeric: tabular-nums;
+}
+.speed .dim { color: #262626; }
+
+/* ===== GEAR / UNIT / ODO ===== */
+.gear-box {
+    position: absolute; left: 268px; top: 22px;
+    width: 70px; height: 66px;
+    display: grid; place-items: center;
+    border-radius: 12px;
+    background: #2b2b2b;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    font-weight: 800; font-size: 40px;
+}
+.gear-box.rev { color: var(--red); }
+.unit { position: absolute; left: 268px; top: 98px; width: 70px; text-align: center; font-weight: 800; font-size: 21px; letter-spacing: 0.04em; }
+.odo  { position: absolute; left: 258px; top: 130px; width: 90px; text-align: center; font-weight: 700; font-size: 14px; }
+
+/* ===== FUEL (bar vertikal) ===== */
+.fuel { position: absolute; left: 362px; top: 14px; width: 24px; height: 136px; }
+.fl { position: absolute; left: 0; width: 100%; text-align: center; font-size: 9px; font-weight: 700; color: #4a4a4a; }
+.fl.f { top: 0; } .fl.e { bottom: 0; }
+.fuel-bar { position: absolute; left: 0; top: 16px; bottom: 16px; width: 100%; display: flex; flex-direction: column-reverse; justify-content: space-between; }
+.fuel-bar i { height: 6px; border-radius: 2px; background: var(--seg-off); transition: background 0.2s; }
+.fuel-bar i.on { background: var(--lit); }
+.fuel-bar.low i.on { background: var(--red); }
+.pump { position: absolute; left: 394px; top: 72px; width: 20px; height: 20px; color: #fff; }
+
+/* ===== RPM (pill horizontal) ===== */
+.rpm-bar { position: absolute; left: 28px; right: 28px; top: 164px; display: grid; grid-template-columns: repeat(20, 1fr); gap: 4px; }
+.rpm-bar i { height: 17px; border-radius: 5px; background: var(--seg-off); transition: background 0.08s linear; }
+.rpm-bar i.on { background: var(--lit); }
+.rpm-bar i.rl.on { background: var(--red); }
+.cluster.redline .rpm-bar i.rl.on { animation: blink 0.16s steps(2) infinite; }
+@keyframes blink { 50% { opacity: 0.3; } }
+
+/* ===== IKON INDIKATOR ===== */
+.icons { position: absolute; left: 36px; right: 36px; top: 204px; display: flex; justify-content: space-between; }
+.ic { width: 22px; height: 22px; color: var(--dim); transition: color 0.15s, filter 0.15s; }
+.ic svg { width: 100%; height: 100%; display: block; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ic.green  { color: var(--green);  filter: drop-shadow(0 0 5px rgba(34, 214, 90, 0.6)); }
+.ic.blue   { color: var(--blue);   filter: drop-shadow(0 0 6px rgba(47, 139, 255, 0.75)); }
+.ic.red    { color: var(--red);    filter: drop-shadow(0 0 5px rgba(255, 42, 47, 0.6)); }
+.ic.yellow { color: var(--yellow); filter: drop-shadow(0 0 5px rgba(255, 194, 26, 0.6)); }
+.ic.blink  { animation: blink 0.7s steps(2) infinite; }
+#door-lock .sh-closed { display: none; }
+#door-lock.locked .sh-closed { display: inline; }
+#door-lock.locked .sh-open { display: none; }
+.cluster.booting .ic { color: rgba(255, 255, 255, 0.55); }
+
+/* ===== INTRO ===== */
+.intro {
+    position: absolute; inset: 0; border-radius: 24px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--panel);
+    opacity: 0; pointer-events: none;
+}
+.intro-text { font-weight: 800; font-size: 44px; letter-spacing: 0.12em; }
+.intro-logo { display: none; width: var(--logo-size); height: var(--logo-size); object-fit: contain; filter: invert(1) contrast(1.6); mix-blend-mode: screen; }
+.intro.has-logo .intro-logo { display: block; }
+.intro.has-logo .intro-text { display: none; }
+.cluster.intro-on .intro   { animation: introFade 2.7s ease both; }
+.cluster.intro-on .content { animation: contentIn 2.7s ease both; }
+@keyframes introFade { 0% { opacity: 0; } 12% { opacity: 1; } 78% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes contentIn { 0%, 78% { opacity: 0; } 100% { opacity: 1; } }

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JGVRP Speedometer HUD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="hud-wrap">
+  <div class="cluster booting" id="hud">
+
+    <div class="content">
+      <div class="speed" id="speed-display"><span class="dim">00</span><span>0</span></div>
+
+      <div class="gear-box"><span id="gear">N</span></div>
+      <div class="unit">MPH</div>
+      <div class="odo"><span id="odometer">0</span> mi</div>
+
+      <div class="fuel">
+        <span class="fl f">F</span>
+        <div class="fuel-bar" id="fuel-bar"></div>
+        <span class="fl e">E</span>
+      </div>
+      <svg class="pump" viewBox="0 0 24 24" fill="currentColor"><path d="M19.77 7.23l.01-.01-3.72-3.72L15 4.56l2.11 2.11c-.94.36-1.61 1.26-1.61 2.33 0 1.38 1.12 2.5 2.5 2.5.36 0 .69-.08 1-.21v7.21c0 .55-.45 1-1 1s-1-.45-1-1V14c0-1.1-.9-2-2-2h-1V5c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v16h10v-7.5h1.5v5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V9c0-.69-.28-1.32-.73-1.77zM12 10H6V5h6v5zm6 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>
+
+      <div class="rpm-bar" id="rpm-bar"></div>
+
+      <!-- Indikator: kiri, kanan, low beam, high beam, engine, kunci, seatbelt, handbrake, aki, cruise -->
+      <div class="icons">
+        <div class="ic" id="ind-left" title="Left"><svg viewBox="0 0 24 24"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></div>
+        <div class="ic" id="ind-right" title="Right"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></div>
+        <div class="ic" id="hl-low" title="Low beam"><svg viewBox="0 0 24 24"><path d="M12 5h2a7 7 0 0 1 0 14h-2z"/><path d="M9 8L3 10M9 12l-6 2M9 16l-6 2"/></svg></div>
+        <div class="ic" id="hl-high" title="High beam"><svg viewBox="0 0 24 24"><path d="M12 5h2a7 7 0 0 1 0 14h-2z"/><path d="M9 8H3M9 12H3M9 16H3"/></svg></div>
+        <div class="ic" id="engine" title="Engine"><svg viewBox="0 0 24 24"><path d="M2 11v4M6 9h3V7h6v2h2l2 2h3v5h-3l-2 2H9l-3-3z"/></svg></div>
+        <div class="ic" id="door-lock" title="Lock"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2" fill="currentColor" stroke="none"/><circle cx="12" cy="15.2" r="1.4" fill="#161616" stroke="none"/><path class="sh-closed" d="M8 11V8a4 4 0 0 1 8 0v3"/><path class="sh-open" d="M8 11V8a4 4 0 0 1 7.4-2.1"/></svg></div>
+        <div class="ic" id="seatbelts" title="Seatbelt"><svg viewBox="0 0 24 24"><circle cx="12" cy="4" r="2.2" fill="currentColor" stroke="none"/><path d="M8 22v-5.5L7 11.5C7 9.6 8.4 8 10.2 8h3.6C15.6 8 17 9.6 17 11.5l-1 5V22"/><path d="M9 8.5l7.5 10"/></svg></div>
+        <div class="ic" id="handbrake" title="Handbrake"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><path d="M12 8.5v4M12 15.6v.1M4 8a9 9 0 0 0 0 8M20 8a9 9 0 0 1 0 8"/></svg></div>
+        <div class="ic" id="battery" title="Battery"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="11" rx="2"/><path d="M7 12.5h3M15 12.5h3M16.5 11v3"/></svg></div>
+        <div class="ic" id="cruise" title="Cruise"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 12l4-4M7 14h.1M8.5 9h.1M12 6.8h.1"/></svg></div>
+      </div>
+    </div>
+
+    <!-- Intro: taruh "logo.png" di folder yang sama; kalau ada otomatis dipakai, kalau tidak tampil teks ANNIS -->
+    <div class="intro" id="intro">
+      <img class="intro-logo" src="logo.png" alt="" onload="document.getElementById('intro').classList.add('has-logo')" onerror="this.remove()">
+      <div class="intro-text">ANNIS</div>
+    </div>
+
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
