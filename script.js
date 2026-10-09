@@ -7,7 +7,7 @@
         opsional: setHandbrake(bool) setBattery(bool) setCruise(bool)
    ========================================================= */
 const MPS_TO_MPH = 2.236936;
-const RPM_N = 20, RED_FROM = 17, FUEL_N = 8;   // jumlah pill RPM, pill mulai merah, segmen fuel
+const RPM_N = 20, RED_FROM = 17;   // jumlah pill RPM, pill mulai merah
 
 const NOOP = document.createElement('div');
 const $ = (id) => document.getElementById(id) || NOOP;
@@ -21,7 +21,6 @@ function makeSegs(box, n, redFrom) {
     return [...box.children];
 }
 const rpmSegs = makeSegs($('rpm-bar'), RPM_N, RED_FROM);
-const fuelSegs = makeSegs($('fuel-bar'), FUEL_N, 99);
 
 // warna ikon: lit('id', 'green' | 'blue' | 'red' | 'yellow' | 'green blink' | '')
 function lit(id, c) {
@@ -67,12 +66,14 @@ window.setRPM = (v) => { st.rpm = clamp01(Number(v || 0)); };
 window.setFuel = (v) => {
     const x = Number(v || 0), p = clamp01(x > 1 ? x / 100 : x);
     st.fuel = p;
-    const n = Math.round(p * FUEL_N);
-    fuelSegs.forEach((s, i) => s.classList.toggle('on', i < n));
-    $('fuel-bar').classList.toggle('low', p < 0.2);
+    $('fuel-val').textContent = Math.round(p * 100);
+    $('fuel-stat').classList.toggle('low', p < 0.2);
 };
-window.setHealth = (v) => {                      // health -> ikon engine (kuning <=50%, merah <=30%)
+window.setHealth = (v) => {                      // persen + ikon engine (kuning <=50%, merah <=30%)
     const x = Number(v || 0), p = clamp01(x > 1 ? x / 1000 : x);
+    $('health-val').textContent = Math.round(p * 100);
+    $('health-stat').classList.toggle('warn', p <= 0.5 && p > 0.3);
+    $('health-stat').classList.toggle('low', p <= 0.3);
     lit('engine', p <= 0.3 ? 'red' : p <= 0.5 ? 'yellow' : '');
 };
 window.setGear = (g) => {
